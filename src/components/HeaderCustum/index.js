@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Input, Image, Grid, Header, Segment,
+  Input, Image, Header, Segment,
 } from 'semantic-ui-react';
 
 // import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
@@ -14,7 +14,9 @@ import './style.scss';
 import githubLogo from './logo-github.png';
 import romLogo from './RB.png';
 
-const HeaderCustum = () => (
+const HeaderCustum = ({
+  inputSearch, onSubmit, onChange, loading, count,
+}) => (
   <Header>
     <div className="container-logo">
       <Image
@@ -41,32 +43,44 @@ const HeaderCustum = () => (
     <Segment
       raised
     >
-      <Input
-        className="input"
-        fluid
-        action={{ icon: 'search' }}
-        placeholder="Rechercher un repo..."
-        size="large"
-      />
+      <form onSubmit={(evt) => {
+        evt.preventDefault();
+        onSubmit();
+      }}
+      >
+        <Input
+          fluid
+          loading={loading}
+          className="input"
+          action={{ icon: 'search' }}
+          placeholder="Rechercher un repo..."
+          size="large"
+          value={inputSearch}
+          onChange={(evt) => {
+            onChange(evt.target.value);
+          }}
+        />
+      </form>
+      <small className="rappel"> Pour rappel, l'API Github n'autorise que 10 requetes par minutes (pour un client non identifié)...</small>
     </Segment>
     <Segment
       raised
       className="mysegment"
-    >Le résultat de ma recherche
+    >{count ? `La recherche a donné ${count} résultats.` : 'Effectuez une recherche pour connaitre le nombre de résultat...'}
     </Segment>
   </Header>
 );
 
-/* Exmaple.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    unit: PropTypes.string.isRequired,
-    myFunction: PropTypes.func.isRequired,
-  })).isRequired,
-}; */
+HeaderCustum.propTypes = {
+  inputSearch: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  count: PropTypes.number,
+};
 
-/* Header.propTypes = {
-  propsHeader: PropTypes.string.isRequired,
-}; */
+HeaderCustum.defaultProps = {
+  count: 0,
+};
 
 export default HeaderCustum;

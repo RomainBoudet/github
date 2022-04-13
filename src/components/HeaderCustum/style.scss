@@ -13,8 +13,6 @@ margin: 1rem;
   max-width: 10%;
   height: auto;
   filter: invert(5%) sepia(68%) saturate(7067%) hue-rotate(22deg) brightness(118%) contrast(110%);
-
-
   // Changer de couleur d'un .png via filter =>  https://codepen.io/sosuke/pen/Pjoqqp
 }
 
@@ -27,11 +25,18 @@ margin: 1rem;
   margin:2rem !important;
   margin-bottom:4rem !important;
 
-
  }
 
 .input{
   margin:1rem;
+}
 
+.rappel{
+  color:rgb(146, 161, 161)
+}
+
+.noresult{
+  padding: 2rem;
+  color: rgba(94, 47, 15, 0.897);
 }
 
