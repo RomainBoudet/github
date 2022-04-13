@@ -25,20 +25,26 @@ const Main = ({ data, loading }) => (
     (!loading && typeof data !== 'undefined') && (
     <Grid container columns={3}>
       <Card.Group>
-        <Card centered>
-          <Card.Content>
-            <Image
-              floated="right"
-              size="mini"
-              src="/images/avatar/large/steve.jpg"
-            />
-            <Card.Header>Steve Sanders</Card.Header>
-            <Card.Meta>Friends of Elliot</Card.Meta>
-            <Card.Description>
-              Steve wants to add you to the group <strong>best friends</strong>
-            </Card.Description>
-          </Card.Content>
-        </Card>
+        {
+        data.map((item) => (
+          <Card centered>
+            <Card.Content>
+              <Image
+                href={item.homepage}
+                target="_blank"
+                floated="right"
+                size="mini"
+                src={item.owner.avatar_url}
+              />
+              <Card.Header><a href={item.html_url}>{item.name}</a></Card.Header>
+              <Card.Meta>{item.full_name}</Card.Meta>
+              <Card.Description>
+                {item.description}
+              </Card.Description>
+            </Card.Content>
+          </Card>
+        ))
+    }
       </Card.Group>
     </Grid>
     )
