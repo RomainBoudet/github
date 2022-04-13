@@ -1,18 +1,7 @@
 @use 'reset';
-@use 'vars';
+@import 'src/styles/vars';
 
 body {
   font-family: sans-serif;
-}
-
-/* 
-  // or you can import your own font
-  @font-face {
-    font-family: 'Roboto';
-    src: url('../assets/fonts/Roboto-Regular.ttf');
-  }
-
-  body {
-    font-family: 'Roboto', sans-serif;
-  }
-*/
+  background-color: $color-back !important;
+};

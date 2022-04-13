@@ -1,0 +1,37 @@
+@import 'src/styles/vars';
+ 
+.container-logo {
+  padding: 0.5rem;
+}
+
+.logo {
+margin: 1rem;
+}
+
+.logo.rom {
+  margin-left: 20rem;
+  max-width: 10%;
+  height: auto;
+  filter: invert(5%) sepia(68%) saturate(7067%) hue-rotate(22deg) brightness(118%) contrast(110%);
+
+
+  // Changer de couleur d'un .png via filter =>  https://codepen.io/sosuke/pen/Pjoqqp
+}
+
+.segment{
+  margin:2rem !important;
+
+}
+
+.mysegment{
+  margin:2rem !important;
+  margin-bottom:4rem !important;
+
+
+ }
+
+.input{
+  margin:1rem;
+
+}
+

@@ -1,0 +1,4 @@
+@use 'sass:color';
+
+$color-back: rgb(70, 52, 52);
+$color-clear: color.scale($color-back, $lightness: 50%);

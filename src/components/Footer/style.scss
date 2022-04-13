@@ -1,1 +1,12 @@
 @use 'src/styles/vars';
+
+.footer {
+  background-color: rgb(59, 37, 18);
+  margin-top: 2rem;
+  padding: 2rem;
+  color: rgb(250, 246, 241);
+}
+
+.mylink {
+  color: inherit;
+}

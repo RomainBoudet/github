@@ -3,15 +3,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import { Routes, Route, Outlet, Link } from "react-router-dom";
 
-
 // import style
 import './style.scss';
 
 // import react
 
 const Footer = ({ propsFooter }) => (
-  <footer>
-    <span> Ⓒ Romain Boudet - {propsFooter} </span>
+  <footer className="footer">
+    <a className="mylink" href="https://romainboudet.fr">
+      <span className="copyright"> Ⓒ Romain Boudet - {propsFooter} </span>
+    </a>
   </footer>
 
 );
