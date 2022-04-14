@@ -2,7 +2,7 @@
 // Et cet unique composant App sera rendu via la méthode render dans le fichier index.js
 // situé a la racine du fichier src.
 // == Import npm
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import axios from 'axios';
 
@@ -13,10 +13,12 @@ import Main from '../Main';
 import Footer from '../Footer';
 
 const url = 'https://api.github.com/search/repositories?q=';
+// une sortie trié par les repo les plus populaire au moin populaire, avec les 12 premiers résultats
+const filter = '&sort=star&order=desc&page=1&per_page=12';
 
 // == Composant
 const App = () => {
-  const [inputSearch, setInputSearch] = useState('');
+  const [inputSearch, setInputSearch] = useState('react');
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +38,7 @@ const App = () => {
         setLoading(true);
         const response = await axios({
           method: 'get',
-          url: `${url}${inputSearch}`,
+          url: `${url}${inputSearch}${filter}`,
         });
         setData(response.data);
       }
@@ -48,6 +50,11 @@ const App = () => {
       }
     }
   };
+
+  // Je cherche direct "react" quand je lance mon app !
+  // J'aurais aussi pu faire une fonction fetchData qui est lancé par onSubmit.
+  // et ainsi utiliser fetchData ici aprés le premier render... plus propre..
+  useEffect(onSubmit, []);
 
   return (
 
