@@ -27,20 +27,25 @@ const App = () => {
   const onSubmit = async () => {
   // Je lance une requete axios pour demander les data a GitHub
   // Je met a jout mon state, avec ces nouvelles data via setData
-    try {
-      setLoading(true);
-      const response = await axios({
-        method: 'get',
-        url: `${url}${inputSearch}`,
-      });
-      console.log('response.data => ', response.data); // item avec un tableau de 30 objets et total_count pour notre nombre de résultats
-      setData(response.data);
+  // si inputSearch et vide, pas d'appel a l'API pour rien !
+    if (inputSearch === '') {
+      setData([]);
     }
-    catch (error) {
-      console.trace(error);
-    }
-    finally {
-      setLoading(false);
+    else {
+      try {
+        setLoading(true);
+        const response = await axios({
+          method: 'get',
+          url: `${url}${inputSearch}`,
+        });
+        setData(response.data);
+      }
+      catch (error) {
+        console.trace(error);
+      }
+      finally {
+        setLoading(false);
+      }
     }
   };
 

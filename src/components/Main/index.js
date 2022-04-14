@@ -1,8 +1,9 @@
 // import npm
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Card, Image } from 'semantic-ui-react';
+import { Grid, Card } from 'semantic-ui-react';
 import Noresult from './noResults';
+import MyCard from './Card';
 import Spinner from '../Spinner';
 
 // import style
@@ -12,7 +13,6 @@ import './style.scss';
 
 const Main = ({ data, loading }) => (
   <main>
-    {console.log('data =>', data)}
     {
     // si loading ou data vaut undefined
     // On veut afficher une string
@@ -27,22 +27,10 @@ const Main = ({ data, loading }) => (
       <Card.Group>
         {
         data.map((item) => (
-          <Card centered>
-            <Card.Content>
-              <Image
-                href={item.homepage}
-                target="_blank"
-                floated="right"
-                size="mini"
-                src={item.owner.avatar_url}
-              />
-              <Card.Header><a href={item.html_url}>{item.name}</a></Card.Header>
-              <Card.Meta>{item.full_name}</Card.Meta>
-              <Card.Description>
-                {item.description}
-              </Card.Description>
-            </Card.Content>
-          </Card>
+          <MyCard
+            key={item.id}
+            {...item}
+          />
         ))
     }
       </Card.Group>

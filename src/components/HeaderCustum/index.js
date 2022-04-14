@@ -49,7 +49,6 @@ const HeaderCustum = ({
       }}
       >
         <Input
-          fluid
           loading={loading}
           className="input"
           action={{ icon: 'search' }}
@@ -66,7 +65,7 @@ const HeaderCustum = ({
     <Segment
       raised
       className="mysegment"
-    >{count ? `La recherche a donné ${count} résultats.` : 'Effectuez une recherche pour connaitre le nombre de résultat...'}
+    >{count ? `La recherche a donnée ${count} résultats !` : 'Effectuez une recherche pour connaitre le nombre de résultat disponible...'}
     </Segment>
   </Header>
 );
