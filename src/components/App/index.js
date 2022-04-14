@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // Ce composant est un container à composants, dans lequel je mettrais tous mes autres composants.
 // Et cet unique composant App sera rendu via la méthode render dans le fichier index.js
 // situé a la racine du fichier src.
@@ -19,10 +20,13 @@ const url = 'https://api.github.com/search/repositories?q=';
 // == Composant
 const App = () => {
   const [inputSearch, setInputSearch] = useState('react');
+  // je souhaite différencier ce qui peut être tapé, et ce qui a été validé par le user !
+  const [inputValidate, setInputValidate] = useState('react');
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activePage, setActivePage] = useState(1);
   const [message, setMessage] = useState('Effectuez une recherche pour connaitre le nombre de résultat disponible...');
+  const [count, setCount] = useState(0);
 
   const onChange = (newValue) => {
     setInputSearch(newValue);
@@ -33,6 +37,7 @@ const App = () => {
   const fetchData = async () => {
     if (inputSearch === '') {
       setData([]);
+      // ou return; si je veux pas éffacer
     }
     else {
       try {
@@ -43,9 +48,10 @@ const App = () => {
           method: 'get',
           url: `${url}${inputSearch}${filter}`,
         });
+        // ancien résultats, plus les nouveaux !
         setData([...data, ...response.data.items]);
         setMessage(`Votre recherche a donné ${response.data.total_count} résultats !`);
-        console.log('data => ', data);
+        setCount(response.data.total_count);
       }
       catch (error) {
         console.trace(error);
@@ -57,7 +63,16 @@ const App = () => {
   };
 
   const onSubmit = () => {
-    fetchData();
+    setActivePage(1);
+    setInputValidate(inputSearch);
+    if (inputValidate === '' && count === 0) {
+      setMessage('Effectuez une recherche pour connaitre le nombre de résultat disponible...');
+      console.log('on passe');
+    }
+    else {
+      fetchData();
+    }
+    console.log('data 2 =>', data);
   };
 
   // Pour gérer la pagination
@@ -66,7 +81,7 @@ const App = () => {
   };
 
   // Je cherche direct "react" quand je lance mon app !
-  // En chargeant pbien la page active. etje reFetch a chaque nouvelle page !
+  // En chargeant bien la page active. et je reFetch à chaque nouvelle page !
   useEffect(fetchData, [activePage]);
 
   return (
@@ -85,8 +100,9 @@ const App = () => {
         fluid
         color="violet"
         loading={loading}
+        disabled={!!((loading || inputValidate === ''))}
         size="large"
-        content={`Afficher plus de repos ? (${activePage * 12} résultats actuellement)`}
+        content={activePage === 1 && inputValidate === '' ? 'Commencer par rechercher un repo...' : `Afficher plus de repos lié à "${inputValidate}" ?     (${data.length} résultats actuellement)`}
         icon="plus"
         onClick={handleShowMore}
       />

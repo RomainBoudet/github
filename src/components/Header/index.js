@@ -43,6 +43,7 @@ const Header = ({
           fluid
           iconPosition="left"
           loading={loading}
+          disabled={loading}
           icon="search"
           placeholder="Rechercher un repo..."
           value={inputSearch}
