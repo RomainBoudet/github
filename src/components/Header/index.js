@@ -14,7 +14,7 @@ import './style.scss';
 import githubLogo from 'src/assets/image/logo-github.png';
 
 const Header = ({
-  inputSearch, onSubmit, onChange, loading, count,
+  inputSearch, onSubmit, onChange, loading, message,
 }) => (
   <header>
     <div className="container-logo">
@@ -56,8 +56,8 @@ const Header = ({
     <Segment
       raised
       className="mysegment"
-    >{count ? `La recherche a donnée ${count} résultats !` : 'Effectuez une recherche pour connaitre le nombre de résultat disponible...'}
-    </Segment>
+      content={message}
+    />
   </header>
 );
 
@@ -66,11 +66,7 @@ Header.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  count: PropTypes.number,
-};
-
-Header.defaultProps = {
-  count: 0,
+  message: PropTypes.string.isRequired,
 };
 
 export default Header;

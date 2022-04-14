@@ -42,21 +42,19 @@ const Main = ({ data, loading }) => (
 );
 
 Main.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    description: PropTypes.string,
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    full_name: PropTypes.string.isRequired,
-    owner: PropTypes.shape({
-      login: PropTypes.string.isRequired,
-      avatar_url: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      description: PropTypes.string,
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      full_name: PropTypes.string.isRequired,
+      owner: PropTypes.shape({
+        login: PropTypes.string.isRequired,
+        avatar_url: PropTypes.string.isRequired,
+      }),
     }),
-  })),
+  ).isRequired,
   loading: PropTypes.bool.isRequired,
-};
-
-Main.defaultProps = {
-  data: undefined,
 };
 
 export default Main;
