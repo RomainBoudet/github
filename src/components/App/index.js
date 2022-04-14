@@ -8,7 +8,7 @@ import axios from 'axios';
 
 // == Import
 import './styles.scss';
-import HeaderCustum from '../HeaderCustum';
+import Header from '../Header';
 import Main from '../Main';
 import Footer from '../Footer';
 
@@ -52,7 +52,7 @@ const App = () => {
   return (
 
     <div className="app">
-      <HeaderCustum
+      <Header
         inputSearch={inputSearch}
         onChange={onChange}
         onSubmit={onSubmit}

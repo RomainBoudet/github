@@ -1,4 +1,8 @@
 import React from 'react';
 import './style.scss';
 
-export default () => <div className="spinner" />;
+import ClipLoader from 'react-spinners/ClipLoader';
+
+// export default () => <div className="spinner" />;
+
+export default () => <div><ClipLoader /> <p>Chargement en cours...</p> </div>;

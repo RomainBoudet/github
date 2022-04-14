@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Input, Image, Header, Segment,
+  Input, Image, Segment,
 } from 'semantic-ui-react';
 
 // import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
@@ -12,9 +12,8 @@ import './style.scss';
 
 // import react
 import githubLogo from 'src/assets/image/logo-github.png';
-import romLogo from 'src/assets/image/RB.png';
 
-const HeaderCustum = ({
+const Header = ({
   inputSearch, onSubmit, onChange, loading, count,
 }) => (
   <header>
@@ -23,22 +22,11 @@ const HeaderCustum = ({
         className="logo"
         src={githubLogo}
         as="a"
-        size="small"
+        size="medium"
         href="https://github.com/RomainBoudet/github"
         target="_blank"
         centered
         alt="logo github"
-      />
-      <Image
-        className="logo rom"
-        src={romLogo}
-        as="a"
-        size="small"
-        href="https://romainboudet.fr/"
-        target="_blank"
-        centered
-        alt="logo Romain Boudet"
-
       />
     </div>
 
@@ -73,7 +61,7 @@ const HeaderCustum = ({
   </header>
 );
 
-HeaderCustum.propTypes = {
+Header.propTypes = {
   inputSearch: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -81,8 +69,8 @@ HeaderCustum.propTypes = {
   count: PropTypes.number,
 };
 
-HeaderCustum.defaultProps = {
+Header.defaultProps = {
   count: 0,
 };
 
-export default HeaderCustum;
+export default Header;
