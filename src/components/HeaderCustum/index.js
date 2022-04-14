@@ -11,13 +11,13 @@ import {
 import './style.scss';
 
 // import react
-import githubLogo from './logo-github.png';
-import romLogo from './RB.png';
+import githubLogo from 'src/assets/image/logo-github.png';
+import romLogo from 'src/assets/image/RB.png';
 
 const HeaderCustum = ({
   inputSearch, onSubmit, onChange, loading, count,
 }) => (
-  <Header>
+  <header>
     <div className="container-logo">
       <Image
         className="logo"
@@ -27,6 +27,7 @@ const HeaderCustum = ({
         href="https://github.com/RomainBoudet/github"
         target="_blank"
         centered
+        alt="logo github"
       />
       <Image
         className="logo rom"
@@ -36,6 +37,8 @@ const HeaderCustum = ({
         href="https://romainboudet.fr/"
         target="_blank"
         centered
+        alt="logo Romain Boudet"
+
       />
     </div>
 
@@ -49,11 +52,11 @@ const HeaderCustum = ({
       }}
       >
         <Input
+          fluid
+          iconPosition="left"
           loading={loading}
-          className="input"
-          action={{ icon: 'search' }}
+          icon="search"
           placeholder="Rechercher un repo..."
-          size="large"
           value={inputSearch}
           onChange={(evt) => {
             onChange(evt.target.value);
@@ -67,7 +70,7 @@ const HeaderCustum = ({
       className="mysegment"
     >{count ? `La recherche a donnée ${count} résultats !` : 'Effectuez une recherche pour connaitre le nombre de résultat disponible...'}
     </Segment>
-  </Header>
+  </header>
 );
 
 HeaderCustum.propTypes = {
