@@ -48,7 +48,7 @@ const Header = ({
           placeholder="Rechercher un repo..."
           value={inputSearch}
           onChange={(evt) => {
-            onChange(evt.target.value);
+            onChange(evt.target.value.trim());
           }}
         />
       </form>

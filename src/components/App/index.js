@@ -20,69 +20,110 @@ const url = 'https://api.github.com/search/repositories?q=';
 // == Composant
 const App = () => {
   const [inputSearch, setInputSearch] = useState('react');
-  // je souhaite différencier ce qui peut être tapé, et ce qui a été validé par le user !
+  // Je garde une trace du dernier mot validé
   const [inputValidate, setInputValidate] = useState('react');
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activePage, setActivePage] = useState(1);
   const [message, setMessage] = useState('Effectuez une recherche pour connaitre le nombre de résultat disponible...');
-  const [count, setCount] = useState(0);
+
+  // Je lance une requete axios pour demander les premiéres data à GitHub
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setActivePage(1);
+      const filter = '&sort=star&order=desc&page=1&per_page=12';
+
+      const response = await axios({
+        method: 'get',
+        url: `${url}${inputSearch}${filter}`,
+      });
+        // ancien résultats, plus les nouveaux !
+      setData(response.data.items);
+      setMessage(`Votre recherche a donné ${response.data.total_count} résultats !`);
+    }
+    catch (error) {
+      console.trace(error);
+    }
+    finally {
+      setLoading(false);
+    }
+  };
+
+  // Je lance une requete axios pour demander les data à GitHub, qu'on va rajouter a nos données éxistantes
+  const fetchMoreData = async () => {
+    try {
+      setLoading(true);
+      console.log('activepage => ', activePage);
+      const filter = `&sort=star&order=desc&page=${activePage + 1}&per_page=12`;
+
+      const response = await axios({
+        method: 'get',
+        url: `${url}${inputSearch}${filter}`,
+      });
+        // ancien résultats, plus les nouveaux !
+      setData([...data, ...response.data.items]);
+      setMessage(`Votre recherche a donné ${response.data.total_count} résultats !`);
+    }
+    catch (error) {
+      console.trace(error);
+    }
+    finally {
+      setLoading(false);
+    }
+  };
+
+  // Je cherche direct "react" quand je lance mon app !
+  useEffect(fetchData, []);
 
   const onChange = (newValue) => {
     setInputSearch(newValue);
   };
 
-  // Je lance une requete axios pour demander les data à GitHub
-  // si inputSearch et vide, pas d'appel a l'API pour rien !
-  const fetchData = async () => {
+  const onSubmit = () => {
+    setInputValidate(inputSearch);
     if (inputSearch === '') {
       setData([]);
-      // ou return; si je veux pas éffacer
-    }
-    else {
-      try {
-        setLoading(true);
-        const filter = `&sort=star&order=desc&page=${activePage}&per_page=12`;
-
-        const response = await axios({
-          method: 'get',
-          url: `${url}${inputSearch}${filter}`,
-        });
-        // ancien résultats, plus les nouveaux !
-        setData([...data, ...response.data.items]);
-        setMessage(`Votre recherche a donné ${response.data.total_count} résultats !`);
-        setCount(response.data.total_count);
-      }
-      catch (error) {
-        console.trace(error);
-      }
-      finally {
-        setLoading(false);
-      }
-    }
-  };
-
-  const onSubmit = () => {
-    setActivePage(1);
-    setInputValidate(inputSearch);
-    if (inputValidate === '' && count === 0) {
       setMessage('Effectuez une recherche pour connaitre le nombre de résultat disponible...');
-      console.log('on passe');
+      return;
     }
-    else {
-      fetchData();
+    if (inputSearch === inputValidate) {
+      // pas d'appel à l'API inutile..
+      return;
     }
-    console.log('data 2 =>', data);
+    fetchData();
   };
 
   // Pour gérer la pagination
   const handleShowMore = () => {
+    // NOTE
+    // Attention ici activePage N'EST PAS augmenté de 1 avant le fetchMoreData,
+    // Cette action semble asynchrone, mais ça maintient à jour l'incrémentation
+    // faîte directement dans fetchMoreData...
+    // Il y a surement beaucoup plus clean !
     setActivePage(activePage + 1);
+    fetchMoreData();
   };
 
-  // Je cherche direct "react" quand je lance mon app !
-  // En chargeant bien la page active. et je reFetch à chaque nouvelle page !
-  useEffect(fetchData, [activePage]);
+  // Je souhaitre trois comportements principaux :
+
+  // 1) Quand je soumet une string vide, aucun repos renvoyés, les data dans le state sont éffacées
+  // 2) Quand je soumet une nouvelle recherche, non vide, les data pré-éxistantes,
+  // sont éffacées pour n'afficher ques les repos de cette nouvelles reqûtes !
+  // 3) Et je souhaite pouvoir afficher plus de données pour une recherche déja effectué, sans écraser le state, en ajoutrant ces nouvelles données aux anciennes
+
+  // Dans le code :
+
+  // Lors du submit, une supression de toutes les data pré-éxistante.
+  // Lors du submit, si inputSearch vaut une string vide, pas d'appel a l'api
+  // Lors du submit, si inputSearch ne vaut pas une string vide, appel a l'API et stockage dans le state de ces news data.
+
+  // Probléme rencontrés :
+
+  //! probléme : setData est asynchrone, et je ne peux pas avoir plusieur setData 
+  //! dans le même cycle... le dernier setData, effacant tous les autres...
+  // => j'opte pour une deuxieme méthode de fetchData qui dans le cas d'une nouvelle recherche avec un nouveau mot,
+  // écrasera le state avec les nouveaux résultats
 
   return (
 
@@ -100,9 +141,9 @@ const App = () => {
         fluid
         color="violet"
         loading={loading}
-        disabled={!!((loading || inputValidate === ''))}
+        disabled={!!((loading || inputSearch === ''))}
         size="large"
-        content={activePage === 1 && inputValidate === '' ? 'Commencer par rechercher un repo...' : `Afficher plus de repos lié à "${inputValidate}" ?     (${data.length} résultats actuellement)`}
+        content={`Afficher plus de repos ? (${data.length} résultats actuellement)`}
         icon="plus"
         onClick={handleShowMore}
       />
