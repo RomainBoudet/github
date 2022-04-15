@@ -1,7 +1,5 @@
 /* eslint-disable max-len */
-// Ce composant est un container à composants, dans lequel je mettrais tous mes autres composants.
-// Et cet unique composant App sera rendu via la méthode render dans le fichier index.js
-// situé a la racine du fichier src.
+
 // == Import npm
 import React, { useState, useEffect } from 'react';
 import 'semantic-ui-css/semantic.min.css';
@@ -28,6 +26,7 @@ const App = () => {
   const [message, setMessage] = useState('Effectuez une recherche pour connaitre le nombre de résultat disponible...');
 
   // Je lance une requete axios pour demander les premiéres data à GitHub
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchData = async () => {
     try {
       setLoading(true);
