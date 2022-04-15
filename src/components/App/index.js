@@ -53,7 +53,6 @@ const App = () => {
   const fetchMoreData = async () => {
     try {
       setLoading(true);
-      console.log('activepage => ', activePage);
       const filter = `&sort=star&order=desc&page=${activePage + 1}&per_page=12`;
 
       const response = await axios({
@@ -119,7 +118,7 @@ const App = () => {
 
   // Probléme rencontrés :
 
-  //! probléme : setData est asynchrone, et je ne peux pas avoir plusieur setData 
+  //! probléme : setData est asynchrone, et je ne peux pas avoir plusieur setData
   //! dans le même cycle... le dernier setData, effacant tous les autres...
   // => j'opte pour une deuxieme méthode de fetchData qui dans le cas d'une nouvelle recherche avec un nouveau mot,
   // écrasera le state avec les nouveaux résultats

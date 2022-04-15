@@ -1,7 +1,6 @@
 // import npm
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'semantic-ui-react';
 import Noresult from './noResults';
 import MyCard from './Card';
 import Spinner from '../Spinner';
