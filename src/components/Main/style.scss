@@ -1,5 +1,9 @@
 @use 'src/styles/vars';
 
 .main{
-  margin: 0.8rem;
+  margin: 0.4rem;
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
 }
+

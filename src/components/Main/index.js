@@ -23,17 +23,15 @@ const Main = ({ data, loading }) => (
   }
     {
     (!loading && typeof data !== 'undefined') && (
-      <Card.Group centered itemsPerRow={3}>
-        {
-        data.map((item) => (
-          <MyCard
-            key={item.id}
-            {...item}
-            description={item.description ? item.description : ''}
-          />
-        ))
-    }
-      </Card.Group>
+
+      data.map((item) => (
+        <MyCard
+          key={item.id}
+          {...item}
+          description={item.description ? item.description : ''}
+        />
+      ))
+
     )
 
   }
