@@ -24,7 +24,6 @@ const mapDispatchToProps = (dispatch) => ({
   // provient de mon composnant
   onSubmit: () => {
     //! 1) Je valide input validate dans le state
-    
     //! 2) si inputSearch vaut '', je vie les data, et je change le message, 
     //!    si inputSearch est identique a inputValidate, on return
     //! Si aucun des 2 cas précédent, on fetchData() !

@@ -30,14 +30,6 @@ export const activePage = (pageNumber) => ({
   pageNumber,
 });
 
-export const fetchData = () => ({
-  type: FETCH_DATA,
-});
-
-export const fetchMoreData = () => ({
-  type: FETCH_MORE_DATA,
-});
-
 export const saveData = (data) => ({
   type: SAVE_DATA,
   data,
@@ -46,4 +38,13 @@ export const saveData = (data) => ({
 export const saveMessage = (message) => ({
   type: SAVE_MESSAGE,
   message,
+});
+
+//!
+export const fetchData = () => ({
+  type: FETCH_DATA,
+});
+
+export const fetchMoreData = () => ({
+  type: FETCH_MORE_DATA,
 });

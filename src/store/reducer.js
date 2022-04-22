@@ -1,4 +1,6 @@
-import { CHANGE_INPUT_SEARCH, SHOW_MORE_REPO, SHOW_REPO } from '../actions';
+import {
+  ACTIVE_PAGE, CHANGE_INPUT_SEARCH, CHANGE_INPUT_VALIDATE, LOADING, SAVE_DATA, SAVE_MESSAGE,
+} from '../actions';
 
 const initialState = {
   inputSearch: 'react',
@@ -17,12 +19,32 @@ const reducer = (stateActuel = initialState, action = {}) => {
         ...stateActuel,
         inputSearch: action.inputSearch,
       };
+    case CHANGE_INPUT_VALIDATE:
+      return {
+        ...stateActuel,
+        inputValidate: action.inputValidate,
+      };
+    case LOADING:
+      return {
+        ...stateActuel,
+        loading: action.bool,
+      };
+    case ACTIVE_PAGE:
+      return {
+        ...stateActuel,
+        activePage: action.pageNumber,
+      };
+    case SAVE_DATA:
+      return {
+        ...stateActuel,
+        data: action.data,
+      };
+    case SAVE_MESSAGE:
+      return {
+        ...stateActuel,
+        message: action.message,
+      };
 
-
-
-
-
-      
     default:
       return stateActuel;
   }
