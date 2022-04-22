@@ -15,52 +15,55 @@ import githubLogo from 'src/assets/image/logo-github.png';
 
 const Header = ({
   inputSearch, onSubmit, onChange, loading, message,
-}) => (
-  <header>
-    <div className="container-logo">
-      <Image
-        className="logo"
-        src={githubLogo}
-        as="a"
-        size="medium"
-        href="https://github.com/RomainBoudet/github"
-        target="_blank"
-        centered
-        alt="logo github"
-      />
-    </div>
-
-    {/* ici ma search bar ! */}
-    <Segment
-      raised
-    >
-      <form onSubmit={(evt) => {
-        evt.preventDefault();
-        onSubmit();
-      }}
-      >
-        <Input
-          fluid
-          iconPosition="left"
-          loading={loading}
-          disabled={loading}
-          icon="search"
-          placeholder="Rechercher un repo..."
-          value={inputSearch}
-          onChange={(evt) => {
-            onChange(evt.target.value.trim());
-          }}
+}) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSubmit();
+  };
+  const handleOnChange = (event) => {
+    onChange(event.target.value.trim());
+  };
+  return (
+    <header>
+      <div className="container-logo">
+        <Image
+          className="logo"
+          src={githubLogo}
+          as="a"
+          size="medium"
+          href="https://github.com/RomainBoudet/github"
+          target="_blank"
+          centered
+          alt="logo github"
         />
-      </form>
-      <small className="rappel"> Pour rappel, l'API Github n'autorise que 10 requetes par minutes (pour un client non identifié)...</small>
-    </Segment>
-    <Segment
-      raised
-      className="mysegment"
-      content={message}
-    />
-  </header>
-);
+      </div>
+
+      {/* ici ma search bar ! */}
+      <Segment
+        raised
+      >
+        <form onSubmit={handleSubmit}>
+          <Input
+            fluid
+            iconPosition="left"
+            loading={loading}
+            disabled={loading}
+            icon="search"
+            placeholder="Rechercher un repo..."
+            value={inputSearch}
+            onChange={handleOnChange}
+          />
+        </form>
+        <small className="rappel"> Pour rappel, l'API Github n'autorise que 10 requetes par minutes (pour un client non identifié)...</small>
+      </Segment>
+      <Segment
+        raised
+        className="mysegment"
+        content={message}
+      />
+    </header>
+  );
+};
 
 Header.propTypes = {
   inputSearch: PropTypes.string.isRequired,

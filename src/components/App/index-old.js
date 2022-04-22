@@ -3,13 +3,14 @@
 // == Import npm
 import React, { useState, useEffect } from 'react';
 import 'semantic-ui-css/semantic.min.css';
+import { Button } from 'semantic-ui-react';
 
 import axios from 'axios';
 
 // == Import
 import './styles.scss';
-import Header from '../../containers/Header';
-import Main from '../../containers/Main';
+import Header from '../Header';
+import Main from '../Main';
 import Footer from '../Footer';
 
 const url = 'https://api.github.com/search/repositories?q=';
@@ -125,9 +126,26 @@ const App = () => {
   return (
 
     <div className="app">
-      <Header />
-      <Main />
-      <Footer />
+      <Header
+        inputSearch={inputSearch}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        loading={loading}
+        message={message}
+      />
+      <Main data={data} loading={loading} />
+      <Button
+        className="buttonmorerepo"
+        fluid
+        color="violet"
+        loading={loading}
+        disabled={!!((loading || inputSearch === ''))}
+        size="large"
+        content={`Afficher plus de repos ? (${data.length} résultats actuellement)`}
+        icon="plus"
+        onClick={handleShowMore}
+      />
+      <Footer propsFooter={(new Date()).getFullYear()} />
     </div>
 
   );
