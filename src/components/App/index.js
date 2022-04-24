@@ -13,11 +13,9 @@ import Footer from '../Footer';
 
 // == Composant
 const App = ({ fetchReact }) => {
-// Je cherche direct "react" quand je lance mon app !
-  console.log('fetchReact => ', fetchReact);
-  /*   useEffect(() => {
-    fetchReact();
-  }, []); */
+  useEffect(() => {
+    console.log('Petit test !!');
+  }, []);
 
   return (
     <div className="app">

@@ -7,10 +7,10 @@ const mapStateToProps = null;
 
 const mapDispatchToProps = (dispatch) => ({
   // provient de mon composnant
-  fetchReact: () => {
+  fetchReact: async () => {
     // Provient de mon dossier actions
     // je fabrique une action pour la dispatcher
-    const action = fetchData();
+    const action = await fetchData();
     dispatch(action);
   },
 });

@@ -36,7 +36,6 @@ const middleware = (store) => (next) => (action) => {
       FetchData();
       break;
     }
-
     case FETCH_MORE_DATA: {
       const fetchMoreData = async () => {
         const state = store.getState();

@@ -42,15 +42,32 @@ module.exports = merge(common, {
 
   devServer: {
     historyApiFallback: true,
-    contentBase: paths.build,
-    clientLogLevel: 'warn',
-    overlay: true,
-    stats: 'minimal',
+    static: {
+      directory: paths.build,
+    },
+    client: {
+      overlay: true,
+      progress: true,
+      logging: 'info',
+    },
+    // On peut ajouter des headers dans toutes les réponses ! https://webpack.js.org/configuration/dev-server/#devserverheaders
+    /* headers: [
+      {
+        key: 'X-Custom',
+        value: 'foo',
+      },
+      {
+        key: 'Y-Custom',
+        value: 'bar',
+      },
+    ], */
     open: true,
     compress: true,
     hot: true,
-    watchOptions: {
-      ignored: /node_modules/,
+    watchFiles: {
+      options: {
+        ignored: /node_modules/,
+      } 
     },
     port,
   },
