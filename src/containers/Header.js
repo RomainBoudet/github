@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { showRepo, changeInputSearch } from '../actions';
+import {
+  changeInputSearch, changeInputValidate, fetchData, saveData, saveMessage,
+} from '../actions';
 // nom par convention, recoit le state comme propriété
 // avec state.quelqueChose, je donne des props qui viennent du state.
 // Si rien ne doit provenir de mon state dans ce container => mapStateToProps = null
@@ -9,6 +11,7 @@ const mapStateToProps = (state) => ({
   loading: state.loading,
   message: state.message,
   inputSearch: state.inputSearch,
+  inputValidate: state.inputValidate,
 });
 
 // Si rien ne doit changer mon state => mapDispatchToProps = {}
@@ -21,15 +24,22 @@ const mapDispatchToProps = (dispatch) => ({
     const action = changeInputSearch(newValue);
     dispatch(action);
   },
-  // provient de mon composnant
-  onSubmit: () => {
-    //! 1) Je valide input validate dans le state
-    //! 2) si inputSearch vaut '', je vie les data, et je change le message, 
-    //!    si inputSearch est identique a inputValidate, on return
-    //! Si aucun des 2 cas précédent, on fetchData() !
-
-    // Provient de mon dossier actions
-    const action = showRepo();
+  // provient de mon composant
+  onSubmit: (newValidate) => {
+    // 1) Je valide input validate dans le state
+    dispatch(changeInputValidate(newValidate));
+    // 2) si inputSearch vaut '', je vie les data, et je change le message,
+    //    si inputSearch est identique a inputValidate, on return (dans le component !)
+    // Si aucun des 2 cas précédent, on fetchData() !
+    if (newValidate === '') {
+      dispatch(saveData([]));
+      dispatch(saveMessage('Effectuez une recherche pour connaitre le nombre de résultat disponible...'));
+      return;
+    }
+    // Va ensuite dans mon dossier action, pour la cas fetchDate, puis dans mon middleware,
+    // dans le case FETCH DATA du switch puis dispatch saveData()
+    // Le tri pour ne pas lancer l'appel a l'API si inputValidate est === inputSearch se fait dans le MW, fetchData
+    const action = fetchData();
     dispatch(action);
   },
 });

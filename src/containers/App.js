@@ -1,25 +1,21 @@
 /* eslint-disable max-len */
 import { connect } from 'react-redux';
-import { fetchMoreData } from '../actions';
-import Main from '../components/Main';
+import { fetchData } from '../actions';
+import App from '../components/App';
 
-const mapStateToProps = (state) => ({
-  data: state.data,
-  loading: state.loading,
-  inputSearch: state.inputSearch,
-});
+const mapStateToProps = null;
 
 const mapDispatchToProps = (dispatch) => ({
-  // provient de mon composant
-  showMoreRepo: () => {
+  // provient de mon composnant
+  fetchReact: () => {
     // Provient de mon dossier actions
     // je fabrique une action pour la dispatcher
-    const action = fetchMoreData();
+    const action = fetchData();
     dispatch(action);
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 // Ordre de travail :
 // 1) Je réalise on composant (dumb componant). Je lui donne les props qu'il a besoin.

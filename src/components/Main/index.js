@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import Noresult from './noResults';
-import MyCard from './Card';
+import Card from './Card';
 import Spinner from '../Spinner';
 
 // import style
@@ -13,44 +13,45 @@ import './style.scss';
 
 const Main = ({
   data, loading, inputSearch, showMoreRepo,
-}) => (
-  <main className="main">
-    {
-    // si loading ou data vaut undefined
-    // On veut afficher une string
-    loading && <Spinner />
+}) => {
+  const handleOnClick = () => {
+    showMoreRepo();
+  };
+
+  return (
+    <main className="main">
+      {
+     // si loading ou data vaut undefined
+     // On veut afficher une string
+     loading && <Spinner />
   }
-    {
+      {
     typeof data === 'undefined' && <Noresult />
   }
-    {
-    (!loading && typeof data !== 'undefined') && (
-
+      {
       data.map((item) => (
-        <MyCard
+        <Card
           key={item.id}
           {...item}
           description={item.description ? item.description : ''}
         />
-      )),
-        <Button
-          className="buttonmorerepo"
-          fluid
-          color="violet"
-          loading={loading}
-          disabled={!!((loading || inputSearch === ''))}
-          size="large"
-          content={`Afficher plus de repos ? (${data.length} résultats actuellement)`}
-          icon="plus"
-          onClick={showMoreRepo}
-        />
+      ))
+      }
+      <Button
+        className="buttonmorerepo"
+        fluid
+        color="violet"
+        loading={loading}
+        disabled={!!((loading || inputSearch === ''))}
+        size="large"
+        content={`Afficher plus de repos ? (${data.length} résultats actuellement)`}
+        icon="plus"
+        onClick={handleOnClick}
+      />
 
-    )
-
-  }
-
-  </main>
-);
+    </main>
+  );
+};
 
 Main.propTypes = {
   data: PropTypes.arrayOf(

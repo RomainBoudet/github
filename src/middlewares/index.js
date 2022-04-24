@@ -5,16 +5,17 @@ import {
   saveData,
   saveMessage,
   loading,
+  activePage,
 } from 'src/actions';
 
 const middleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_DATA: {
-      // console.log('ok');
       const FetchData = async () => {
+        const state = store.getState();
+
         store.dispatch(loading(true));
 
-        const state = store.getState();
         try {
           const filter = '&sort=star&order=desc&page=1&per_page=12';
 
@@ -22,7 +23,6 @@ const middleware = (store) => (next) => (action) => {
             method: 'get',
             url: `${process.env.BASE_URL}${state.inputSearch}${filter}`,
           });
-            // ancien résultats, plus les nouveaux !
           store.dispatch(saveData(response.data.items));
           store.dispatch(saveMessage(`Votre recherche a donné ${response.data.total_count} résultats !`));
         }
@@ -38,10 +38,11 @@ const middleware = (store) => (next) => (action) => {
     }
 
     case FETCH_MORE_DATA: {
-      // console.log('ok');
-      const FetchMoreData = async () => {
-        store.dispatch(loading(true));
+      const fetchMoreData = async () => {
         const state = store.getState();
+
+        store.dispatch(activePage(state.activePage + 1));
+        store.dispatch(loading(true));
         try {
           const filter = `&sort=star&order=desc&page=${state.activePage + 1}&per_page=12`;
 
@@ -50,7 +51,7 @@ const middleware = (store) => (next) => (action) => {
             url: `${process.env.BASE_URL}${state.inputSearch}${filter}`,
           });
             // ancien résultats, plus les nouveaux !
-          store.dispatch(saveData([state.data, ...response.data.items]));
+          store.dispatch(saveData([...state.data, ...response.data.items]));
           store.dispatch(saveMessage(`Votre recherche a donné ${response.data.total_count} résultats !`));
         }
         catch (error) {
@@ -60,7 +61,7 @@ const middleware = (store) => (next) => (action) => {
           store.dispatch(loading(false));
         }
       };
-      FetchMoreData();
+      fetchMoreData();
       break;
     }
     default:

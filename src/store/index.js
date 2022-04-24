@@ -1,13 +1,22 @@
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from '@redux-devtools/extension';
+import { configureStore } from '@reduxjs/toolkit';
 
-import reducer from './reducer';
-import middleware from '../middlewares';
+import rootReducer from './reducer';
+import rootMiddleware from '../middlewares';
 
-const store = createStore(reducer, composeWithDevTools(
-  applyMiddleware(middleware),
+const preloadedState = {
+  inputSearch: 'react',
+  inputValidate: '',
+  data: [],
+  loading: false,
+  activePage: 1,
+  message: 'Effectuez une recherche pour connaitre le nombre de résultat disponible...',
+};
 
-// import middlewares
-));
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: [rootMiddleware],
+  devTools: process.env.NODE_ENV !== 'production',
+  preloadedState,
+});
 
 export default store;
