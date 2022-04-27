@@ -4,6 +4,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import 'semantic-ui-css/semantic.min.css';
+// import { useDispatch } from 'react-redux';
 
 // == Import
 import './styles.scss';
@@ -13,9 +14,10 @@ import Footer from '../Footer';
 
 // == Composant
 const App = ({ fetchReact }) => {
+
   useEffect(() => {
-    console.log('Petit test !!');
-  }, []);
+    fetchReact();
+  }, []); 
 
   return (
     <div className="app">
@@ -24,7 +26,7 @@ const App = ({ fetchReact }) => {
       <Footer />
     </div>
   );
-};
+}
 
 App.propTypes = {
   fetchReact: PropTypes.func.isRequired,

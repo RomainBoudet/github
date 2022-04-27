@@ -3,6 +3,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducer';
 import rootMiddleware from '../middlewares';
 
+// Pour préchargér des data en provenance du localStorage de l'utilisateur :
+// https://redux.js.org/tutorials/fundamentals/part-4-store 
 const preloadedState = {
   inputSearch: 'react',
   inputValidate: '',

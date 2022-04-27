@@ -6,17 +6,17 @@ import {
 } from 'semantic-ui-react';
 
 // import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
-// import react
 import githubLogo from 'src/assets/image/logo-github.png';
 // import style
 import './style.scss';
 
-//! Ici on veut des composant réutilisable... 
+//! Ici on veut des composant réutilisable...
 //! pas d'import du store pour avoir accés aux données du state !
 //! Les props sont là pour ça !
-const Header = ({
-  inputSearch, onSubmit, onChange, loading, message, inputValidate,
-}) => {
+function Header({
+  inputSearch, onSubmit, onChange, loading, message, inputValidate, activePage,
+}) {
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -72,7 +72,7 @@ const Header = ({
       />
     </header>
   );
-};
+}
 
 Header.propTypes = {
   inputSearch: PropTypes.string.isRequired,

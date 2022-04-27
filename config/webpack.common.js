@@ -56,23 +56,22 @@ module.exports = {
       },
 
       // Fonts
+      
       {
         test: /\.(woff2?|eot|ttf|otf)$/,
-        loader: 'file-loader',
-        options: {
-          outputPath: 'fonts/',
-        },
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[hash][ext][query]'
+        }
       },
 
       // Images
       {
         test: /\.(ico|gif|png|jpe?g|webp|svg)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: { outputPath: 'images/' },
-          },
-        ],
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[hash][ext][query]'
+        }
       },
     ],
   },

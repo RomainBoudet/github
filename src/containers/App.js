@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import { fetchData } from '../actions';
 import App from '../components/App';
 
-const mapStateToProps = null;
+// const mapStateToProps = null;
+// const mapStateToProps = null;
+const mapStateToProps = (state) => ({
+  react: state.inputSearch,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  // provient de mon composnant
-  fetchReact: async () => {
-    // Provient de mon dossier actions
-    // je fabrique une action pour la dispatcher
-    const action = await fetchData();
-    dispatch(action);
+  // provient de mon composant
+  fetchReact: () => {
+    dispatch(fetchData());
   },
 });
 

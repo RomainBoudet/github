@@ -1,4 +1,4 @@
-# Méthodologie conseillée
+# Méthodologie
 
 
 ## Je m'occupe de React et uniquement React
@@ -63,3 +63,6 @@ J'ai besoin d'exporter:
 * je commence par donner les fonctions dans les props attendus par mon composant, et je fais un simple console.log dedans
 * J'importe les action creator dont j'ai besoin
 * Je dispatch dans les fonctions les actions qui vont bien
+
+
+#### Et je n'oublie de passer mon smart componant App et non mon container APP dans mon index.js ou je passe mon App au provider ! (si jamais j'ai passé des props a mon App..)

@@ -28,6 +28,7 @@ const Main = ({
       {
     typeof data === 'undefined' && <Noresult />
   }
+
       {
       data.map((item) => (
         <Card
