@@ -1,5 +1,9 @@
 # Méthodologie
 
+React avec Redux et React-Redux :
+
+![](Final%20react-redux.jpg)
+
 
 ## Je m'occupe de React et uniquement React
 
@@ -66,3 +70,27 @@ J'ai besoin d'exporter:
 
 
 #### Et je n'oublie de passer mon smart componant App et non mon container APP dans mon index.js ou je passe mon App au provider ! (si jamais j'ai passé des props a mon App..)
+
+
+Je peux aussi utiliser les Hooks fournit par React-Redux : useSelector pour lire le state et useDispatch pour modifier le state
+```javascript
+import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import { hide } from 'src/actions/colors';
+
+const message = () => {
+  const dispatch = useDispatch();
+  const content = useSelector((state) => state.content);
+}
+return (
+  <div className="message">
+  <a onClick={() => dispatch(hide())} >Hide message<a/>
+  {contant}
+  </div>
+)
+}
+
+
+
+
+```

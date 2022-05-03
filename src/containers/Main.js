@@ -4,9 +4,9 @@ import { fetchMoreData } from '../actions';
 import Main from '../components/Main';
 
 const mapStateToProps = (state) => ({
-  data: state.data,
-  loading: state.loading,
-  inputSearch: state.inputSearch,
+  data: state.rootReducer.data,
+  loading: state.rootReducer.loading,
+  inputSearch: state.rootReducer.inputSearch,
 });
 
 const mapDispatchToProps = (dispatch) => ({

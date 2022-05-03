@@ -13,6 +13,7 @@ const middleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case FETCH_DATA: {
         const state = store.getState();
+        console.log("state.api => ", state.api);
 
         store.dispatch(loading(true));
 

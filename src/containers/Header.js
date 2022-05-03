@@ -8,10 +8,10 @@ import {
 // avec state.quelqueChose, je donne des props qui viennent du state.
 // Si rien ne doit provenir de mon state dans ce container => mapStateToProps = null
 const mapStateToProps = (state) => ({
-  loading: state.loading,
-  message: state.message,
-  inputSearch: state.inputSearch,
-  inputValidate: state.inputValidate,
+  loading: state.rootReducer.loading,
+  message: state.rootReducer.message,
+  inputSearch: state.rootReducer.inputSearch,
+  inputValidate: state.rootReducer.inputValidate,
 });
 
 // Si rien ne doit changer mon state => mapDispatchToProps = {}

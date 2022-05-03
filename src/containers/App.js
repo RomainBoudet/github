@@ -6,7 +6,7 @@ import App from '../components/App';
 // const mapStateToProps = null;
 // const mapStateToProps = null;
 const mapStateToProps = (state) => ({
-  react: state.inputSearch,
+  react: state.rootReducer.inputSearch,
 });
 
 const mapDispatchToProps = (dispatch) => ({

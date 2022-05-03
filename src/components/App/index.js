@@ -12,8 +12,15 @@ import Header from '../../containers/Header';
 import Main from '../../containers/Main';
 import Footer from '../Footer';
 
+import { useGetAllReposQuery } from '../../api';
+
+
 // == Composant
 const App = ({ fetchReact }) => {
+  
+  //! test de Redux RTK qery :
+  const { data } = useGetAllReposQuery()
+  console.log("data ==> ", data);
 
   useEffect(() => {
     fetchReact();
